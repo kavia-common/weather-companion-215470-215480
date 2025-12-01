@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ensure IDs from include are unique across fragments if needed -->
+</resources>

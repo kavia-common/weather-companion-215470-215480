@@ -1,0 +1,58 @@
+package org.example.app.data.remote
+
+import android.util.Log
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.example.app.BuildConfig
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
+
+/**
+ * Simple provider for networking singletons without DI frameworks.
+ */
+object NetworkModule {
+
+    private val moshi: Moshi by lazy {
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
+
+    private val logging: HttpLoggingInterceptor by lazy {
+        HttpLoggingInterceptor { message -> Log.d("HTTP", message) }
+            .apply { level = HttpLoggingInterceptor.Level.BASIC }
+    }
+
+    private val headersInterceptor = Interceptor { chain ->
+        val req = chain.request()
+            .newBuilder()
+            .addHeader("Accept", "application/json")
+            .build()
+        chain.proceed(req)
+    }
+
+    private val okHttp: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .addInterceptor(headersInterceptor)
+            .addInterceptor(logging)
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
+
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttp)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+    }
+
+    val api: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
+    }
+}
