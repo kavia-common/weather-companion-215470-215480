@@ -1,6 +1,10 @@
 package org.example.app.data.model
 
-// Data models aligned with backend OpenAPI shapes (subset for placeholders)
+/**
+ * PUBLIC_INTERFACE
+ * Kotlin data models aligned with the FastAPI backend OpenAPI schema.
+ * Fields use snake_case to match JSON from backend and Moshi uses reflection to map directly.
+ */
 
 data class Coordinates(
     val lat: Double,

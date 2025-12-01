@@ -35,8 +35,8 @@ class SearchFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { s ->
-                primary.text = s.status
-                secondary.text = s.resultsSummary
+                primary.text = if (s.isLoading) "Searching..." else s.status
+                secondary.text = s.error ?: s.resultsSummary
             }
         }
     }

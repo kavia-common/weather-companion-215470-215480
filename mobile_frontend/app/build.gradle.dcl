@@ -2,13 +2,13 @@ androidApplication {
     namespace = "org.example.app"
 
     // PUBLIC_INTERFACE
-    // DefaultConfig entries including BuildConfig fields
-    defaultConfig {
-        buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3001/\"")
-    }
-
-    // Enable features like viewBinding (supported feature flag)
-    features = listOf("viewBinding")
+    // Declarative Gradle DSL: configure build features and BuildConfig fields inline.
+    buildFeatures = mapOf(
+        "viewBinding" to true
+    )
+    buildConfig = mapOf(
+        "BASE_URL" to "\"http://10.0.2.2:3001/\""
+    )
 
     dependencies {
         // Core AndroidX

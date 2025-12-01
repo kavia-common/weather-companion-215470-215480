@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Simple provider for networking singletons without DI frameworks.
+ * Ensures base URL points to emulator loopback by default (http://10.0.2.2:3001/).
  */
 object NetworkModule {
 
@@ -45,13 +46,16 @@ object NetworkModule {
     }
 
     private val retrofit: Retrofit by lazy {
+        // Defensive: ensure baseUrl ends with slash for Retrofit
+        val base = if (BuildConfig.BASE_URL.endsWith("/")) BuildConfig.BASE_URL else (BuildConfig.BASE_URL + "/")
         Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(base)
             .client(okHttp)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 
+    // PUBLIC_INTERFACE
     val api: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }

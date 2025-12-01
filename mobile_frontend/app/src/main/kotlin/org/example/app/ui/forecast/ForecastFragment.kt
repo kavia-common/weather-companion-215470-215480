@@ -27,8 +27,8 @@ class ForecastFragment : Fragment() {
         title.text = getString(R.string.nav_forecast)
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect {
-                primary.text = it.headline
-                secondary.text = "Items: ${it.count}"
+                primary.text = if (it.isLoading) "Loading..." else it.headline
+                secondary.text = it.error ?: "Items: ${it.count}"
             }
         }
         vm.load()

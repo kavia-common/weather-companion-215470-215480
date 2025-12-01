@@ -27,8 +27,8 @@ class DashboardFragment : Fragment() {
         title.text = getString(R.string.nav_dashboard)
         viewLifecycleOwner.lifecycleScope.launch {
             vm.state.collect { state ->
-                primary.text = state.title
-                secondary.text = state.subtitle
+                primary.text = if (state.isLoading) "Loading..." else state.title
+                secondary.text = state.error ?: state.subtitle
             }
         }
         vm.load()
