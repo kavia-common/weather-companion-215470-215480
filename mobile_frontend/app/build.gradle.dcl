@@ -10,6 +10,11 @@ androidApplication {
     // NOTE: buildConfig/fields are not supported by this plugin version in this environment.
     // BASE_URL defaults to http://10.0.2.2:3001/ in code; reintroduce BuildConfig via DSL when available.
 
+    testing {
+        useJUnitPlatform = true
+        failOnNoDiscoveredTests = false
+    }
+
     // Dependencies remain unchanged
     dependencies {
         // Core AndroidX

@@ -1,1 +1,4 @@
-This file intentionally left blank to ensure Gradle recognizes layout for view binding generation.
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

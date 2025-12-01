@@ -6,7 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.example.app.BuildConfig
+
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -46,12 +46,9 @@ object NetworkModule {
     }
 
     private val retrofit: Retrofit by lazy {
-        // Determine base URL. Prefer BuildConfig if available; otherwise fallback to emulator loopback.
-        val configuredBase = try {
-            BuildConfig.BASE_URL
-        } catch (t: Throwable) {
-            "http://10.0.2.2:3001/"
-        }
+        // Determine base URL. Read from system property if provided, otherwise use emulator loopback.
+        // You can set -DAPP_BASE_URL=https://your-backend/ when running Gradle if needed.
+        val configuredBase = System.getProperty("APP_BASE_URL") ?: "http://10.0.2.2:3001/"
         // Defensive: ensure baseUrl ends with slash for Retrofit
         val base = if (configuredBase.endsWith("/")) configuredBase else (configuredBase + "/")
         Retrofit.Builder()
