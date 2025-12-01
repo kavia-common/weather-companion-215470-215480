@@ -10,10 +10,7 @@ androidApplication {
     // NOTE: buildConfig/fields are not supported by this plugin version in this environment.
     // BASE_URL defaults to http://10.0.2.2:3001/ in code; reintroduce BuildConfig via DSL when available.
 
-    testing {
-        useJUnitPlatform = true
-        failOnNoDiscoveredTests = false
-    }
+
 
     // Dependencies remain unchanged
     dependencies {
@@ -44,5 +41,11 @@ androidApplication {
 
         // Keep sample modules if still referenced elsewhere
         implementation(project(":utilities"))
+
+        // Unit testing - JUnit Jupiter (Declarative DSL configuration syntax)
+        configurations {
+            testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+            testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+        }
     }
 }

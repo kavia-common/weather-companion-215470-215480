@@ -25,28 +25,12 @@ defaults {
         versionName = "0.1"
         applicationId = "org.gradle.experimental.android.app"
 
-        testing {
-            // Ensure JUnit Platform is used and don't fail on empty discovery (CI safety)
-            useJUnitPlatform = true
-            failOnNoDiscoveredTests = false
 
-            dependencies {
-                implementation("org.junit.jupiter:junit-jupiter:5.10.2")
-                runtimeOnly("org.junit.platform:junit-platform-launcher")
-            }
-        }
     }
 
     androidLibrary {
         jdkVersion = 17
         compileSdk = 34
         minSdk = 30
-
-        testing {
-            dependencies {
-                implementation("org.junit.jupiter:junit-jupiter:5.10.2")
-                runtimeOnly("org.junit.platform:junit-platform-launcher")
-            }
-        }
     }
 }
