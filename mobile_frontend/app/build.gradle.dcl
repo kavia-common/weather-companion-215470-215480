@@ -1,15 +1,24 @@
 androidApplication {
+    // Core Android module coordinates
     namespace = "org.example.app"
 
-    // PUBLIC_INTERFACE
-    // Declarative Gradle DSL: configure build features and BuildConfig fields inline.
+    // SDK configuration (kept in declarative form; defaults also set in settings.gradle.dcl)
+    compileSdk = 34
+    minSdk = 30
+    targetSdk = 34
+
+    // Enable viewBinding using supported top-level buildFeatures map
     buildFeatures = mapOf(
         "viewBinding" to true
     )
-    buildConfig = mapOf(
+
+    // PUBLIC_INTERFACE
+    // BuildConfig fields declared at the top level for declarative DSL
+    buildConfigFields = mapOf(
         "BASE_URL" to "\"http://10.0.2.2:3001/\""
     )
 
+    // Dependencies remain unchanged
     dependencies {
         // Core AndroidX
         implementation("androidx.core:core-ktx:1.13.1")
