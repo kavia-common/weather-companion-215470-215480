@@ -7,13 +7,11 @@ androidApplication {
     minSdk = 30
     targetSdk = 34
 
-    // Enable viewBinding using supported top-level buildFeatures map
-    buildFeatures = mapOf(
-        "viewBinding" to true
-    )
+    // Enable View Binding using supported top-level property
+    viewBinding = true
 
     // PUBLIC_INTERFACE
-    // BuildConfig fields declared at the top level for declarative DSL
+    // BuildConfig fields declared at the top level map
     buildConfigFields = mapOf(
         "BASE_URL" to "\"http://10.0.2.2:3001/\""
     )
