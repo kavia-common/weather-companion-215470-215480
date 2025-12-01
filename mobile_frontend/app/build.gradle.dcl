@@ -7,14 +7,8 @@ androidApplication {
     minSdk = 30
     targetSdk = 34
 
-    // Enable View Binding using supported top-level property
-    viewBinding = true
-
-    // PUBLIC_INTERFACE
-    // BuildConfig fields declared at the top level map
-    buildConfigFields = mapOf(
-        "BASE_URL" to "\"http://10.0.2.2:3001/\""
-    )
+    // NOTE: buildConfig/fields are not supported by this plugin version in this environment.
+    // BASE_URL defaults to http://10.0.2.2:3001/ in code; reintroduce BuildConfig via DSL when available.
 
     // Dependencies remain unchanged
     dependencies {

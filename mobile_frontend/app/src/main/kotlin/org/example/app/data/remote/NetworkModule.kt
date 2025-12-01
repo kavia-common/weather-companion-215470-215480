@@ -46,8 +46,14 @@ object NetworkModule {
     }
 
     private val retrofit: Retrofit by lazy {
+        // Determine base URL. Prefer BuildConfig if available; otherwise fallback to emulator loopback.
+        val configuredBase = try {
+            BuildConfig.BASE_URL
+        } catch (t: Throwable) {
+            "http://10.0.2.2:3001/"
+        }
         // Defensive: ensure baseUrl ends with slash for Retrofit
-        val base = if (BuildConfig.BASE_URL.endsWith("/")) BuildConfig.BASE_URL else (BuildConfig.BASE_URL + "/")
+        val base = if (configuredBase.endsWith("/")) configuredBase else (configuredBase + "/")
         Retrofit.Builder()
             .baseUrl(base)
             .client(okHttp)
